@@ -1,0 +1,26 @@
+.contentStyle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  color: #fff;
+  position: absolute;
+}
+
+h1 {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 105.6px;
+  text-align: left;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.mainBgStyle {
+  background-image: url('src/assets/images/main-bg.jpg');
+  background-size: cover;
+  height: 600px;
+  width: 100%;
+  top: 128px;
+  left: 0;
+}
