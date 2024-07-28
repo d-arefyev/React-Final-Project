@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
+import Filter from '../../../components/FilterContainer/Filter/Filter';
+import DiscountedItems from '../../../components/FilterContainer/DiscountedItems/DiscountedItems';
+import SelectSort from '../../../components/FilterContainer/SelectSort/SelectSort';
 import styles from './DiscountedProductsPage.module.css';
 
 const DiscountedProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [sortType, setSortType] = useState(searchParams.get("sortType") || "default");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const response = await axios.get('http://localhost:3333/products/all');
         const discountedProducts = response.data.filter(product => product.discont_price);
         setProducts(discountedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
+        setError("An error occurred while fetching products. Please try again later.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -29,95 +41,72 @@ const DiscountedProductsPage = () => {
     const filterAndSortProducts = () => {
       const minPrice = parseFloat(searchParams.get("minPrice") || "0");
       const maxPrice = parseFloat(searchParams.get("maxPrice") || Infinity);
-      const sortType = searchParams.get("sortType");
+      const includeDiscount = searchParams.get("includeDiscount") === "true";
 
-      // Filtering products by price range
       const filtered = products.filter(product => {
-        const productPrice = product.discont_price;
-        return productPrice >= minPrice && productPrice <= maxPrice;
+        const productPrice = product.discont_price || product.price;
+        if (productPrice < minPrice || productPrice > maxPrice) return false;
+        if (includeDiscount && !product.discont_price) return false;
+        return true;
       });
 
-      // Sorting products based on the selected sort type
       const sorted = filtered.sort((a, b) => {
         if (sortType === "newest") {
           return new Date(b.createdAt) - new Date(a.createdAt);
         } else if (sortType === "priceHighToLow") {
-          return b.discont_price - a.discont_price;
+          return (b.discont_price || b.price) - (a.discont_price || a.price);
         } else if (sortType === "priceLowToHigh") {
-          return a.discont_price - b.discont_price;
+          return (a.discont_price || a.price) - (b.discont_price || b.price);
         }
-        return 0; // Default sort
+        return 0;
       });
 
       setFilteredProducts(sorted);
     };
 
     filterAndSortProducts();
-  }, [products, searchParams]);
+  }, [products, searchParams, sortType]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set(name, type === "checkbox" ? checked : value);
-    setSearchParams(newSearchParams);
-  };
-
-  const addToCart = (product) => {
-    console.log("Adding to cart:", product);
-  };
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return (
+    <div style={{
+      color: 'red',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginTop: '50px'
+    }}>
+      {error}
+    </div>
+  );
 
   return (
     <div className="globalContainer">
-      <div className={styles.categoriesPage}>
+      <div className={styles.discountedProductsPage}>
         <Breadcrumbs
           items={[
             { path: '/', label: 'Main page' },
-            { path: '/categories', label: 'All sales', isActive: true }
+            { path: '/categories', label: 'Discounted items', isActive: true }
           ]}
         />
-        <div className={styles.categoriesPageTitle}>
+        <div className={styles.pageTitle}>
           <h2>Discounted items</h2>
         </div>
-
-        <div className={styles.filtersContainer}>
-          <label>
-            Min price
-            <input
-              name="minPrice"
-              type="number"
-              value={searchParams.get("minPrice") || ""}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Max price
-            <input
-              name="maxPrice"
-              type="number"
-              value={searchParams.get("maxPrice") || ""}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Sort type
-            <select
-              name="sortType"
-              value={searchParams.get("sortType") || "default"}
-              onChange={handleChange}
-            >
-              <option value="default">by default</option>
-              <option value="newest">newest</option>
-              <option value="priceHighToLow">price: high-low</option>
-              <option value="priceLowToHigh">price: low-high</option>
-            </select>
-          </label>
+        <div className={styles.filterContainer}>
+          <Filter searchParams={searchParams} setSearchParams={setSearchParams} />
+          <div className={styles.selectSort}>
+            <span className={styles.sortTitle}>Sorted</span>
+            <SelectSort sortType={sortType} setSortType={setSortType} searchParams={searchParams} setSearchParams={setSearchParams} />
+          </div>
         </div>
-
-        <ul className={styles.gridCategoriesContainer}>
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} addToCart={addToCart} />
-          ))}
-        </ul>
+        <div className={styles.productsContainer}>
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <p>No discounted products found</p>
+          )}
+        </div>
       </div>
     </div>
   );

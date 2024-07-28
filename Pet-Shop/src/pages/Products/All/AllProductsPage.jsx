@@ -40,14 +40,10 @@ function AllProductsPage() {
       const minPrice = parseFloat(searchParams.get("minPrice")) || 0;
       const maxPrice = parseFloat(searchParams.get("maxPrice")) || Infinity;
       const includeDiscount = searchParams.get("includeDiscount") === "true";
+      const productPrice = product.discont_price || product.price;
 
-      if (product.price < minPrice || product.price > maxPrice) {
-        return false;
-      }
-
-      if (includeDiscount && !product.discont_price) {
-        return false;
-      }
+      if (productPrice < minPrice || productPrice > maxPrice) return false;
+      if (includeDiscount && !product.discont_price) return false;
 
       return true;
     })
@@ -63,10 +59,6 @@ function AllProductsPage() {
       }
       return 0;
     });
-
-  const addToCart = (product) => {
-    console.log("Added to cart:", product);
-  };
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return (
@@ -89,7 +81,7 @@ function AllProductsPage() {
             { path: '/categories', label: 'All products', isActive: true }
           ]}
         />
-        <div className={styles.categoriesPageTitle}>
+        <div className={styles.pageTitle}>
           <h2>All products</h2>
         </div>
         <div className={styles.filterContainer}>
@@ -105,7 +97,6 @@ function AllProductsPage() {
             <ProductCard
               key={product.id}
               product={product}
-              addToCart={addToCart}
             />
           ))}
         </div>
