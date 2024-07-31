@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { openModal } from '../../redux/modalSlice';
+import { openModal, closeModal } from '../../redux/modalSlice';
 import GetDiscountButton from '../Buttons/GetDiscountButton/GetDiscountButton';
 import styles from './DiscountForm.module.css';
 import discountImage from '../../assets/images/pets.png';
@@ -15,6 +15,10 @@ function DiscountForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!isFormValid()) {
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:3333/sale/send', {
         name,
@@ -27,6 +31,7 @@ function DiscountForm() {
           title: 'Success',
           content: 'Your request has been submitted successfully!',
         }));
+        clearForm();
       }
     } catch (error) {
       dispatch(openModal({
@@ -36,47 +41,75 @@ function DiscountForm() {
     }
   };
 
+  const isNameValid = () => /^[A-Za-z\s]+$/.test(name);
+  const isPhoneValid = () => /^\d+$/.test(phone);
+  const isEmailValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const isFormValid = () => isNameValid() && isPhoneValid() && isEmailValid();
+
+  const clearForm = () => {
+    setName('');
+    setPhone('');
+    setEmail('');
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+    clearForm();
+  };
+
   return (
     <div className="globalContainer">
       <div className={styles.discountFormContainer}>
-        <div className={styles.imageContainer}>
-          <img src={discountImage} alt="Discount" className={styles.discountImage} />
-        </div>
+        <h2>5% off on the first order</h2>
         <div className={styles.formContainer}>
-          <h2>5% off on the first order</h2>
-          <form onSubmit={handleSubmit}>
-            <div className={styles.formGroup}>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="tel"
-                id="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <GetDiscountButton onClick={handleSubmit} />
-          </form>
+          <div className={styles.imageContainer}>
+            <img src={discountImage} alt="Discount" className={styles.discountImage} />
+          </div>
+          <div className={styles.formContent}>
+            <form onSubmit={handleSubmit} className={styles.formGroupBox}>
+              <div className={styles.formGroup}>
+                <label>
+                  <input
+                    type="text"
+                    value={name}
+                    placeholder="Name"
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    aria-invalid={!isNameValid()}
+                  />
+                  {!isNameValid() && <div className={styles.tooltip}></div>} {/*Only letters are allowed.*/}
+                </label>
+              </div>
+              <div className={styles.formGroup}>
+                <label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    placeholder="Phone number"
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    aria-invalid={!isPhoneValid()}
+                  />
+                  {!isPhoneValid() && <div className={styles.tooltip}></div>} {/*Only digits are allowed. Enter 10-15 digits.*/}
+                </label>
+              </div>
+              <div className={styles.formGroup}>
+                <label>
+                  <input
+                    type="email"
+                    value={email}
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    aria-invalid={!isEmailValid()}
+                  />
+                  {!isEmailValid() && <div className={styles.tooltip}></div>} {/*Enter a valid email address.*/}
+                </label>
+              </div>
+              <GetDiscountButton disabled={!isFormValid()} />
+            </form>
+          </div>
         </div>
       </div>
     </div>
