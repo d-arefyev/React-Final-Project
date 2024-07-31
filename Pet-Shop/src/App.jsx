@@ -15,7 +15,7 @@ import CartPage from "./pages/Cart/CartPage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 
 import store from "./redux/store";
-import "./App.css"
+import "./App.css";
 
 function App() {
   return (
@@ -39,9 +39,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
-
         <ConnectedModal />
-
       </BrowserRouter>
     </ReduxProvider>
   );

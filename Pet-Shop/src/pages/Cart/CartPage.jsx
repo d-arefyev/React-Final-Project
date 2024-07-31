@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../redux/modalSlice";
-import { removeItem } from "../../redux/сartlSlice";
+import { removeItem } from "../../redux/cartSlice";
 
 import Button from "../../components/Buttons/Button/Button";
 

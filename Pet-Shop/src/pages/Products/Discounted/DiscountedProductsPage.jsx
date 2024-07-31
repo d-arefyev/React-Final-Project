@@ -5,7 +5,6 @@ import axios from 'axios';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import Filter from '../../../components/FilterContainer/Filter/Filter';
-import DiscountedItems from '../../../components/FilterContainer/DiscountedItems/DiscountedItems';
 import SelectSort from '../../../components/FilterContainer/SelectSort/SelectSort';
 import styles from './DiscountedProductsPage.module.css';
 
@@ -53,9 +52,11 @@ const DiscountedProductsPage = () => {
       const sorted = filtered.sort((a, b) => {
         if (sortType === "newest") {
           return new Date(b.createdAt) - new Date(a.createdAt);
-        } else if (sortType === "priceHighToLow") {
+        }
+        if (sortType === "priceHighToLow") {
           return (b.discont_price || b.price) - (a.discont_price || a.price);
-        } else if (sortType === "priceLowToHigh") {
+        }
+        if (sortType === "priceLowToHigh") {
           return (a.discont_price || a.price) - (b.discont_price || b.price);
         }
         return 0;
@@ -94,7 +95,7 @@ const DiscountedProductsPage = () => {
         <div className={styles.filterContainer}>
           <Filter searchParams={searchParams} setSearchParams={setSearchParams} />
           <div className={styles.selectSort}>
-            <span className={styles.sortTitle}>Sorted</span>
+            <span className={styles.sortTitle}>Sorted by</span>
             <SelectSort sortType={sortType} setSortType={setSortType} searchParams={searchParams} setSearchParams={setSearchParams} />
           </div>
         </div>

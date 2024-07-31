@@ -1,4 +1,4 @@
-.addBlueButton {
+.getDiscountButton {
   padding: 0 32px;
   border: none;
   height: 58px;
@@ -13,12 +13,12 @@
   z-index: 10;
 }
 
-.addBlueButton:hover {
+.getDiscountButton:hover {
   background-color: var(--color-dark);
   color: var(--color-light);
 }
 
-.addBlueButton:active {
+.getDiscountButton:active {
   background-color: var(--color-light);
   color: var(--color-dark);
   border: 1px solid var(--color-dark);

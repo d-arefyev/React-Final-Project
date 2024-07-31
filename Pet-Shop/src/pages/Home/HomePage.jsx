@@ -6,6 +6,7 @@ import CategoriesBlock from '../../components/CategoriesBlock/CategoriesBlock';
 import DiscountForm from '../../components/DiscountForm/DiscountForm';
 import SaleBlock from '../../components/SaleBlock/SaleBlock';
 
+import backgroundImg from '../../assets/images/main-bg.jpg';
 
 function HomePage() {
   return (
@@ -16,14 +17,13 @@ function HomePage() {
           <CheckOutButton />
         </div>
       </div>
-      <div className={styles.mainBgStyle}></div>
+      <div className={styles.mainBgStyle} style={{ backgroundImage: `url(${backgroundImg})` }}></div>
 
       <CategoriesBlock />
       <DiscountForm />
       <SaleBlock />
-
     </div>
   );
 }
 
-export default HomePage
+export default HomePage;

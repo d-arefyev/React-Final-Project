@@ -32,10 +32,17 @@
 
 .addButtonContainer {
   position: absolute;
-  bottom: 0;
+  bottom: 16px;
+  left: 50%;
   width: 100%;
   z-index: 10;
   opacity: 0;
+}
+
+.addButtonContainer button {
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
 }
 
 .productCard:hover .addButtonContainer {
@@ -52,6 +59,7 @@
     transform: translateY(20px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;

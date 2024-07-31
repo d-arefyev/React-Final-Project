@@ -1,4 +1,3 @@
-// SelectSort.js
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './SelectSort.module.css';
 import arrowIcon from '../../../assets/icons/arrow.svg';

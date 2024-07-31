@@ -1,19 +1,16 @@
+// src/components/ProductCard/ProductCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-import { addToCart } from '../../redux/сartlSlice';
+import { addToCart } from '../../redux/cartSlice';
 import AddBlueButton from '../Buttons/AddBlueButton/AddBlueButton';
 import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
-  const handleAddToCart = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
-    dispatch(addToCart(product));
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...product, quantity: 1 })); // Добавляем товар с количеством 1
   };
 
   const calculateDiscountPercentage = (price, discountPrice) => {
