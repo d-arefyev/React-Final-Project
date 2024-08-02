@@ -33,7 +33,9 @@ function DiscountForm() {
       if (response.status === 200) {
         dispatch(openModal({
           title: 'Success',
-          content: 'Your request has been submitted successfully!',
+          content: [
+            'Your request has been submitted successfully!',
+          ],
         }));
         setIsSubmitted(true);
         clearForm();

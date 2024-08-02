@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './HomePage.module.css';
 
 import CheckOutButton from '../../components/Buttons/CheckOutButton/CheckOutButton';
 import CategoriesBlock from '../../components/CategoriesBlock/CategoriesBlock';
 import DiscountForm from '../../components/DiscountForm/DiscountForm';
 import SaleBlock from '../../components/SaleBlock/SaleBlock';
+import styles from './HomePage.module.css';
 
 import backgroundImg from '../../assets/images/main-bg.jpg';
 

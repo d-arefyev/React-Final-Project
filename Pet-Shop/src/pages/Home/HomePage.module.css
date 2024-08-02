@@ -18,6 +18,8 @@ h1 {
 
 .mainBgStyle {
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   height: 600px;
   width: 100%;
   top: 128px;

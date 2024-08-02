@@ -16,6 +16,10 @@
   gap: 32px;
 }
 
+.navLink {
+  padding: 16px 0;
+}
+
 .cartLink {
   position: relative;
 }

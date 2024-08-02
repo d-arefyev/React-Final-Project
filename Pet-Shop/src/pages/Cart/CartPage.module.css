@@ -204,11 +204,11 @@
   color: var(--color-light);
 }
 
-.continueShoppingButton:active {
+/* .continueShoppingButton:active {
   background-color: var(--color-light);
   color: var(--color-dark);
   border: 1px solid var(--color-dark);
-}
+} */
 
 .formContent {
   display: flex;

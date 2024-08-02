@@ -20,16 +20,16 @@ export default function Header() {
           <nav className={styles.navBlock}>
             <ul>
               <li>
-                <Link to="/">Main Page</Link>
+                <Link to="/" className={styles.navLink}>Main Page</Link>
               </li>
               <li>
-                <Link to="/categories">Categories</Link>
+                <Link to="/categories" className={styles.navLink}>Categories</Link>
               </li>
               <li>
-                <Link to="/products">All Products</Link>
+                <Link to="/products" className={styles.navLink}>All Products</Link>
               </li>
               <li>
-                <Link to="/discounted-products">All Sales</Link>
+                <Link to="/discounted-products" className={styles.navLink}>All Sales</Link>
               </li>
             </ul>
           </nav>

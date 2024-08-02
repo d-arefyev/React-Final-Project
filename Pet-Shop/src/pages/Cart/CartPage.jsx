@@ -32,6 +32,10 @@ function CartPage() {
     0
   );
 
+  const formatPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
+    totalPrice
+  );
+
   const handleQuantityChange = (id, newQuantity) => {
     dispatch(updateQuantity({ id, quantity: newQuantity }));
   };
@@ -74,7 +78,10 @@ function CartPage() {
 
       dispatch(openModal({
         title: 'Congratulations!',
-        content: 'A manager will contact you shortly to confirm your order.',
+        content: [
+          'Your order has been successfully placed on the website.',
+          'A manager will contact you shortly to confirm your order.'
+        ],
       }));
 
       setIsSubmitted(true);
@@ -189,7 +196,9 @@ function CartPage() {
               <div className={styles.totalPrice}>
                 <span className={styles.totalPriceTitle}>Total</span>
                 <span className={styles.totalPriceSumme}>
-                  ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {formatPrice}
+
+                  {/* ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} */}
                   {/* ${totalPrice.toFixed(2)} */}
                 </span>
               </div>

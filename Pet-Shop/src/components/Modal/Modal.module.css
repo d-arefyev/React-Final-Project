@@ -14,17 +14,21 @@
 
 .ModalContent {
   position: relative;
-  background: var(--color-light);
+  background: var(--color-blue);
+  color: var(--color-light);
   padding: 32px 92px 32px 32px;
   border-radius: var(--border-radius-large);
   max-width: 548px;
   width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
 }
 
 .ModalContent h2 {
   font-size: 40px;
   font-weight: 600;
-  line-height: .8;
+  line-height: 44px;
   margin-bottom: 24px;
 }
 
@@ -32,16 +36,18 @@
   width: 44px;
   height: 44px;
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: 32px;
+  right: 32px;
   border: none;
   background: none;
   padding: 0;
   margin: 0;
-  color: var(--color-dark-gray);
-  transition: var( --transition-duration);
+  color: var(--color-light);
+  transition: var(--transition-duration);
+  opacity: 0.5;
 }
 
 .CloseButton:hover {
-  color: var(--color-dark);
+  color: var(--color-light);
+  opacity: 1;
 }
