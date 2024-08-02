@@ -9,7 +9,7 @@ function AddBlueButton({ onClick }) {
     if (onClick) {
       onClick(e);
     }
-    setTimeout(() => setState('normal'), 1000);
+    setTimeout(() => setState('normal'), 2000);
   };
 
   return (

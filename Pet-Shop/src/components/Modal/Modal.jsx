@@ -11,10 +11,9 @@ const Modal = ({ isOpen, onClose, children }) => {
       <div className={styles.ModalContent} onClick={(e) => e.stopPropagation()}>
         <button className={styles.CloseButton} onClick={onClose}>
           <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-            <path d="M33 11L11 33" stroke="none" stroke-width="3.66667" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M11 11L33 33" stroke="none" stroke-width="3.66667" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M33 11L11 33" stroke="none" strokeWidth="3.66667" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M11 11L33 33" stroke="none" strokeWidth="3.66667" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-
         </button>
         {children}
       </div>

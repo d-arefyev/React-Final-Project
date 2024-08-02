@@ -15,10 +15,10 @@
 }
 
 .gridItem {
-  display: block;
-  /* flex-direction: column;
-  justify-content: start; */
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 9px 16px;
   padding: 32px;
   background-color: var(--color-light-gray2);
   border-radius: var(--border-radius-large);
@@ -64,4 +64,5 @@ iframe {
   width: 100%;
   height: 350px;
   border: none;
+  clip-path: inset(0 round var(--border-radius-large));
 }

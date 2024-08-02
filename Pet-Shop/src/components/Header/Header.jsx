@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styles from './Header.module.css';
 
+import styles from './Header.module.css';
 import mainLogo from '../../assets/icons/main-logo.svg';
 import cartIcon from '../../assets/icons/cart.svg';
 
 export default function Header() {
-  // Получаем количество товаров в корзине из Redux
-  const cartItems = useSelector(state => state.cart.items);
+  const cartItems = useSelector((state) => state.cart.items);
   const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
@@ -18,8 +17,6 @@ export default function Header() {
           <Link to="/">
             <img src={mainLogo} alt="Main Logo" />
           </Link>
-
-          {/* Навигация */}
           <nav className={styles.navBlock}>
             <ul>
               <li>
@@ -36,8 +33,6 @@ export default function Header() {
               </li>
             </ul>
           </nav>
-
-          {/* Корзина */}
           <Link to="/cart" className={styles.cartLink}>
             <img src={cartIcon} alt="Cart" />
             {cartItemsCount > 0 && (

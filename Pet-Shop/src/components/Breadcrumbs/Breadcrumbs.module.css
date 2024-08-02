@@ -20,10 +20,17 @@
 }
 
 .breadcrumbItem:hover {
-  color: --color-blue;
+  background-color: var(--color-light-gray2);
+  color: var(--color-dark-gray);
 }
 
 .breadcrumbActive {
+  color: var(--color-dark);
+  cursor: pointer;
+}
+
+.breadcrumbActive:hover {
+  background-color: var(--color-light);
   color: var(--color-dark);
 }
 

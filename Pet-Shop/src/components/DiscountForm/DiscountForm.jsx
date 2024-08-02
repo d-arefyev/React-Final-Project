@@ -10,14 +10,18 @@ function DiscountForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!isFormValid()) {
+    if (!isFormValid() || isSubmitting) {
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const response = await axios.post('http://localhost:3333/sale/send', {
@@ -31,6 +35,7 @@ function DiscountForm() {
           title: 'Success',
           content: 'Your request has been submitted successfully!',
         }));
+        setIsSubmitted(true);
         clearForm();
       }
     } catch (error) {
@@ -38,11 +43,13 @@ function DiscountForm() {
         title: 'Error',
         content: 'There was an error submitting your request. Please try again later.',
       }));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const isNameValid = () => /^[A-Za-z\s]+$/.test(name);
-  const isPhoneValid = () => /^\d+$/.test(phone);
+  const isPhoneValid = () => /^\d{10,15}$/.test(phone);
   const isEmailValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const isFormValid = () => isNameValid() && isPhoneValid() && isEmailValid();
@@ -78,7 +85,7 @@ function DiscountForm() {
                     required
                     aria-invalid={!isNameValid()}
                   />
-                  {!isNameValid() && <div className={styles.tooltip}></div>} {/*Only letters are allowed.*/}
+                  {!isNameValid() && <div className={styles.tooltip}></div>} {/* Only letters are allowed. */}
                 </label>
               </div>
               <div className={styles.formGroup}>
@@ -91,7 +98,7 @@ function DiscountForm() {
                     required
                     aria-invalid={!isPhoneValid()}
                   />
-                  {!isPhoneValid() && <div className={styles.tooltip}></div>} {/*Only digits are allowed. Enter 10-15 digits.*/}
+                  {!isPhoneValid() && <div className={styles.tooltip}></div>} {/* Only digits are allowed. Enter 10-15 digits. */}
                 </label>
               </div>
               <div className={styles.formGroup}>
@@ -104,10 +111,13 @@ function DiscountForm() {
                     required
                     aria-invalid={!isEmailValid()}
                   />
-                  {!isEmailValid() && <div className={styles.tooltip}></div>} {/*Enter a valid email address.*/}
+                  {!isEmailValid() && <div className={styles.tooltip}></div>} {/* Enter a valid email address. */}
                 </label>
               </div>
-              <GetDiscountButton disabled={!isFormValid()} />
+              <GetDiscountButton
+                onClick={handleSubmit}
+                disabled={!isFormValid() || isSubmitting || isSubmitted}
+              />
             </form>
           </div>
         </div>

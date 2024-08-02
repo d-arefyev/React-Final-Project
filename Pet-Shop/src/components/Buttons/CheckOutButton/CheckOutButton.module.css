@@ -6,19 +6,19 @@
   text-align: center;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
-  background-color: #0D50FF;
-  color: #fff;
+  transition: var(--transition-duration);
+  background-color: var(--color-blue);
+  color: var(--color-light);
   text-decoration: none;
 }
 
 .buttonStyle:hover {
-  background-color: #282828;
-  color: #fff;
+  background-color: var(--color-dark);
+  color: var(--color-light);
 }
 
 .buttonStyle:active {
-  background-color: #fff;
-  color: #282828;
-  border: 1px solid #282828;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  border: 1px solid var(--color-dark);
 }
