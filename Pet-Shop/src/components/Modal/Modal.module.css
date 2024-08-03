@@ -22,7 +22,7 @@
   width: 100%;
   font-size: 20px;
   font-weight: 600;
-  line-height: 22px;
+  line-height: 24px;
 }
 
 .ModalContent h2 {
@@ -30,6 +30,10 @@
   font-weight: 600;
   line-height: 44px;
   margin-bottom: 24px;
+}
+
+.ModalContent p:not(:last-child) {
+  margin-bottom: 15px;
 }
 
 .CloseButton {
