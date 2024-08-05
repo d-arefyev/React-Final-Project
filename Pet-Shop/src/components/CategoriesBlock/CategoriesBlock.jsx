@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+
 import styles from '../CategoriesBlock/CategoriesBlock.module.css';
+import API_URL from '../../utils/api';
 
 const CategoriesBlock = () => {
   const [categories, setCategories] = useState([]);
@@ -9,7 +11,7 @@ const CategoriesBlock = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:3333/categories/all');
+        const response = await axios.get(`${API_URL}/categories/all`);
         setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -35,7 +37,7 @@ const CategoriesBlock = () => {
           {categories.slice(0, 4).map((category) => (
             <li key={category.id} className={styles.gridCategoriesItem}>
               <Link to={`/categories/${category.id}`} className={styles.categoryItem}>
-                <img src={`http://localhost:3333${category.image}`} alt={category.title} className={styles.categoryImage} />
+                <img src={`${API_URL}${category.image}`} alt={category.title} className={styles.categoryImage} />
                 <h3 className={styles.categoryName}>
                   {category.title}
                 </h3>

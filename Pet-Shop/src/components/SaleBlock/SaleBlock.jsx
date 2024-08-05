@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './SaleBlock.module.css';
 import ProductCard from '../ProductCard/ProductCard';
+import API_URL from '../../utils/api';
 
 const SaleBlock = () => {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ const SaleBlock = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3333/products/all');
+        const response = await axios.get(`${API_URL}/products/all`);
         // Фильтруем товары, чтобы оставить только те, у которых есть discont_price
         const discountedProducts = response.data.filter(product => product.discont_price);
         // Ограничиваем количество товаров до 4

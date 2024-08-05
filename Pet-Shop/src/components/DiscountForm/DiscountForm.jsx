@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+
 import { openModal, closeModal } from '../../redux/modalSlice';
 import GetDiscountButton from '../Buttons/GetDiscountButton/GetDiscountButton';
 import styles from './DiscountForm.module.css';
 import discountImage from '../../assets/images/pets.png';
+import API_URL from '../../utils/api';
 
 function DiscountForm() {
   const [name, setName] = useState('');
@@ -24,7 +26,7 @@ function DiscountForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('http://localhost:3333/sale/send', {
+      const response = await axios.post(`${API_URL}/sale/send`, {
         name,
         phone,
         email,

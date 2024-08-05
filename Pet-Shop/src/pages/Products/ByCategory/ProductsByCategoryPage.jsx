@@ -8,6 +8,7 @@ import Filter from "../../../components/FilterContainer/Filter/Filter";
 import DiscountedItems from "../../../components/FilterContainer/DiscountedItems/DiscountedItems";
 import SelectSort from "../../../components/FilterContainer/SelectSort/SelectSort";
 import styles from "./ProductsByCategoryPage.module.css";
+import API_URL from '../../../utils/api';
 
 function ProductsByCategoryPage() {
   const { categoryId } = useParams();
@@ -24,7 +25,7 @@ function ProductsByCategoryPage() {
       setError(null);
 
       try {
-        const response = await axios.get(`http://localhost:3333/categories/${categoryId}`);
+        const response = await axios.get(`${API_URL}/categories/${categoryId}`);
         if (response.status === 200) {
           setProducts(response.data.data);
           setCategoryName(response.data.category.title);

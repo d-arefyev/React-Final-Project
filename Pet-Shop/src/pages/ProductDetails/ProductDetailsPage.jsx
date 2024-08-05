@@ -9,7 +9,7 @@ import Counter from '../../components/Counter/Counter';
 import styles from './ProductDetailsPage.module.css';
 import { addToCart } from '../../redux/cartSlice';
 
-const API_URL = "http://localhost:3333";  // URL для API запросов
+import API_URL from '../../utils/api';  // URL для API запросов
 
 function ProductDetailsPage() {
   const { productId } = useParams();  // Получаем параметр productId из URL

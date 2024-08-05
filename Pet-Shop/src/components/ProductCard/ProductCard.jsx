@@ -2,9 +2,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 import { addToCart } from '../../redux/cartSlice';
 import AddBlueButton from '../Buttons/AddBlueButton/AddBlueButton';
 import styles from './ProductCard.module.css';
+import API_URL from '../../utils/api';
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const ProductCard = ({ product }) => {
   return (
     <li className={styles.productCard}>
       <div className={styles.productImageContainer}>
-        <img src={`http://localhost:3333${product.image}`} alt={product.title} className={styles.productImage} />
+        <img src={`${API_URL}${product.image}`} alt={product.title} className={styles.productImage} />
         {product.discont_price && (
           <div className={styles.discountFlag}>
             -{calculateDiscountPercentage(product.price, product.discont_price)}%

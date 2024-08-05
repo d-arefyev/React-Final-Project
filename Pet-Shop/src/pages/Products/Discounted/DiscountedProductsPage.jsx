@@ -7,6 +7,7 @@ import ProductCard from '../../../components/ProductCard/ProductCard';
 import Filter from '../../../components/FilterContainer/Filter/Filter';
 import SelectSort from '../../../components/FilterContainer/SelectSort/SelectSort';
 import styles from './DiscountedProductsPage.module.css';
+import API_URL from '../../../utils/api';
 
 const DiscountedProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +23,7 @@ const DiscountedProductsPage = () => {
       setError(null);
 
       try {
-        const response = await axios.get('http://localhost:3333/products/all');
+        const response = await axios.get(`${API_URL}/products/all`);
         const discountedProducts = response.data.filter(product => product.discont_price);
         setProducts(discountedProducts);
       } catch (error) {

@@ -25,3 +25,30 @@ h1 {
   top: 128px;
   left: 0;
 }
+
+/* :root {
+  --desktop-above: 1281px;
+  --desktop: 1280px;
+  --tablet-above: 1024px;
+  --tablet: 1023px;
+  --mobile-above: 768px;
+  --mobile: 767px;
+  --mobile-s-above: 481px;
+  --mobile-s: 480px;
+} */
+
+@media (min-width: var(--desktop-above)) {}
+
+@media (max-width: var(--desktop)) {}
+
+@media (min-width: var(--tablet-above)) {}
+
+@media (max-width: var(--tablet)) {}
+
+@media (min-width: var(--mobile-above)) {}
+
+@media (max-width: var(--mobile)) {}
+
+@media (min-width: var(--mobile-s-above)) {}
+
+@media (max-width: var(--mobile-s)) {}

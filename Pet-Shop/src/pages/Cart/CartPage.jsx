@@ -8,8 +8,7 @@ import { removeItem, clearCart, updateQuantity } from '../../redux/cartSlice';
 import Counter from '../../components/Counter/Counter';
 import OrderButton from '../../components/Buttons/OrderButton/OrderButton';
 import styles from './CartPage.module.css';
-
-const API_URL = "http://localhost:3333";
+import API_URL from '../../utils/api';
 
 function CartPage() {
   const dispatch = useDispatch();
