@@ -123,6 +123,12 @@ textarea:focus {
   background-color: var(--color-light-gray2);
 }
 
+@media (max-width: 767px) {
+  .titleBlock h2 {
+    font-size: 55px;
+  }
+  
+}
 
 
 

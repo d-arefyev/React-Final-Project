@@ -8,6 +8,8 @@ import API_URL from '../../utils/api';
 
 const CategoriesBlock = () => {
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Добавлено состояние загрузки
+  const [error, setError] = useState(null); // Добавлено состояние ошибки
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -17,11 +19,28 @@ const CategoriesBlock = () => {
       } catch (error) {
         console.error("Error fetching categories:", error);
         setError("An error occurred fetching data. Please try again later.");
+      } finally {
+        setIsLoading(false); // Устанавливаем загрузку в false в любом случае
       }
     };
 
     fetchCategories();
   }, []);
+
+  // Отображаем индикатор загрузки
+  if (isLoading) return <p>Loading...</p>;
+
+  // Отображаем сообщение об ошибке
+  if (error) return (
+    <div style={{
+      color: 'red',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginTop: '50px'
+    }}>
+      {error}
+    </div>
+  );
 
   return (
     <div className="globalContainer">

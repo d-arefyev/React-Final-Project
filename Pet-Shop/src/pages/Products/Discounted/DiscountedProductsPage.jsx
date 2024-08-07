@@ -28,7 +28,7 @@ const DiscountedProductsPage = () => {
         setProducts(discountedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
-        setError("An error occurred while fetching products. Please try again later.");
+        setError("An error occurred fetching data. Please try again later.");
       } finally {
         setIsLoading(false);
       }

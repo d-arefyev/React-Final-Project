@@ -66,3 +66,14 @@ iframe {
   border: none;
   clip-path: inset(0 round var(--border-radius-large));
 }
+
+@media (max-width: 1023px) {
+  .footerStyle {
+    padding-bottom: 40px;
+  }
+
+  .gridItem> :last-child {
+    font-size: 32px;
+    Line-height: 36px;
+  }
+}

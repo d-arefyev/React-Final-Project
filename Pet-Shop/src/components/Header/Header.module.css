@@ -40,29 +40,114 @@
   font-weight: 600;
 }
 
-/* :root {
-  --desktop-above: 1281px;
-  --desktop: 1280px;
-  --tablet-above: 1024px;
-  --tablet: 1023px;
-  --mobile-above: 768px;
-  --mobile: 767px;
-  --mobile-s-above: 481px;
-  --mobile-s: 480px;
-} */
+.burgerButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
 
-@media (min-width: 1281px) {}
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  right: 15px;
+}
 
-@media (max-width: 1280px) {}
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(2px);
+  border: none;
+  padding: 15px;
+  display: none;
+  z-index: 1000;
+}
 
-@media (min-width: 1024px) {}
+.mobileOverlay.visible {
+  display: block;
+}
 
-@media (max-width: 1023px) {}
+.mobileMenuBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-@media (min-width: 768px) {}
+.mobileMenuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
 
-@media (max-width: 767px) {}
+.mobileMenuItem {
+  padding: 16px 0;
+}
 
-@media (min-width: 481px) {}
+@media (max-width: 767px) {
 
-@media (max-width: 480px) {}
+  .headerContent {
+    height: 100px;
+  }
+  .mainLogo {
+    /* width: 70px; */
+    height: auto;
+  }
+
+  .burgerButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    color: var(--color-dark);
+  }
+
+  .burgerButton svg {
+    width: 32px;
+    height: auto;
+  }
+
+  .burgerButton:hover {
+    color: var(--color-blue);
+    transition: var(--transition-duration);
+  }
+
+  .navBlock {
+    display: none;
+  }
+
+  .closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    color: var(--color-dark);
+  }
+
+  .closeButton svg {
+    width: 32px;
+    height: auto;
+  }
+
+  .closeButton:hover {
+    color: var(--color-blue);
+    transition: var(--transition-duration);
+  }
+}
