@@ -127,9 +127,25 @@ textarea:focus {
   .titleBlock h2 {
     font-size: 55px;
   }
-  
 }
 
+@media (max-width: 7500px) {
+  .titleBlock h2 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 580px) {
+  .titleBlock h2 {
+    font-size: 45px;
+  }
+  .titleBlockLine {
+    display: none;
+  }
+  .titleBlockButton {
+    display: none;
+  }
+}
 
 
 a,

@@ -131,4 +131,11 @@
   .categoriesBlock {
     margin-top: 60px;
   }
+  .discountFormContainer {
+    margin-top: 80px;
+  }
+
+  .formContainer {
+    max-width: 100%;
+  }
 }

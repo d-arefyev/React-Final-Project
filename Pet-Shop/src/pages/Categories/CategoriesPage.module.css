@@ -39,10 +39,3 @@
   font-weight: 500;
   line-height: 26px;
 }
-
-
-@media (max-width: 767px) {
-  .categoriesBlock {
-    margin-top: 60px;
-  }
-}

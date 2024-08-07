@@ -36,31 +36,13 @@
   line-height: 26px;
 }
 
+@media (max-width: 1023px) {
+  .categoriesBlock {
+    margin-top: 50px;
+  }
 
-
-:root {
-  --desktop-above: 1281px;
-  --desktop: 1280px;
-  --tablet-above: 1024px;
-  --tablet: 1023px;
-  --mobile-above: 768px;
-  --mobile: 767px;
-  --mobile-s-above: 481px;
-  --mobile-s: 480px;
+  .gridCategoriesContainer {
+    margin-top: 20px;
+  }
 }
 
-@media (min-width: 1281px) {}
-
-@media (max-width: 1280px) {}
-
-@media (min-width: 1024px) {}
-
-@media (max-width: 1023px) {}
-
-@media (min-width: 768px) {}
-
-@media (max-width: 767px) {}
-
-@media (min-width: 481px) {}
-
-@media (max-width: 480px) {}
