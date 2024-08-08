@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 486px;
+  min-height: 486px;
   border-radius: var(--border-radius-large);
   background: linear-gradient(261.47deg, #2451C6 32.63%, #0D50FF 98.96%);
   margin-top: 106px;
@@ -66,6 +66,13 @@
   opacity: 0.5;
 }
 
+.tooltip {
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: 5px;
+  color: var(--color-light);
+}
+
 .getDiscountButton {
   padding: 0 32px;
   border: none;
@@ -102,12 +109,8 @@
     height: auto;
   }
 
-  .discountFormContainer h2 {
-    font-size: 55px;
-  }
-
   .formContainer {
-    max-width: 80%;
+    max-width: 620px;
     flex-direction: column;
     gap: 0;
   }
@@ -124,18 +127,32 @@
   }
 
   .formGroup input {}
+}
 
+@media (max-width: 1023px) {
+  .discountFormContainer h2 {
+    font-size: 50px;
+    line-height: 60.4px;
+  }
+
+  .discountFormContainer {
+    margin-top: 60px;
+  }
 }
 
 @media (max-width: 767px) {
   .categoriesBlock {
     margin-top: 60px;
   }
-  .discountFormContainer {
-    margin-top: 80px;
-  }
 
   .formContainer {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 580px) {
+  .discountFormContainer h2 {
+    font-size: 45px;
+    line-height: 55.4px;
   }
 }

@@ -9,6 +9,7 @@
   align-items: center;
   gap: 40px;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .productsContainer {
@@ -20,3 +21,4 @@
 .sortTitle {
   font-weight: 600;
 }
+

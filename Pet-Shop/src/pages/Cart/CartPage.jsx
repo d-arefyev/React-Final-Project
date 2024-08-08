@@ -13,48 +13,68 @@ import API_URL from '../../utils/api';
 function CartPage() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
-  const [form, setForm] = useState({ name: '', phone: '', email: '' });
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState(null);
 
+  // Состояния для полей ввода и состояния формы
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // Состояние отправки формы
+  const [isSubmitted, setIsSubmitted] = useState(false); // Состояние успешной отправки
+  const [error, setError] = useState(null); // Состояние для ошибки
+
+  // Состояния для отслеживания, было ли поле затронуто
+  const [touchedFields, setTouchedFields] = useState({
+    name: false,
+    phone: false,
+    email: false,
+  });
+
+  // Очистка формы после успешной отправки
   useEffect(() => {
     if (isSubmitted) {
-      clearForm();
-      setIsSubmitted(false);
+      clearForm(); // Очищаем форму
+      setIsSubmitted(false); // Сбрасываем состояние отправки
     }
   }, [isSubmitted]);
 
+  // Подсчет общего количества товаров и их стоимости
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = cartItems.reduce(
     (total, item) => total + (item.discont_price || item.price) * item.quantity,
     0
   );
+  const formatPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice);
 
-  const formatPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
-    totalPrice
-  );
-
+  // Обработка изменения количества товаров
   const handleQuantityChange = (id, newQuantity) => {
     dispatch(updateQuantity({ id, quantity: newQuantity }));
   };
 
+  // Обработка изменений в полях ввода
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
+    if (name === 'name') setName(value);
+    if (name === 'phone') setPhone(value);
+    if (name === 'email') setEmail(value);
+
+    // Отмечаем поле как затронутое
+    setTouchedFields((prev) => ({
+      ...prev,
+      [name]: true,
     }));
   };
 
+  // Отправка формы
   const handlePlaceOrder = async (e) => {
-    e.preventDefault();
-    if (!isFormValid() || isLoading || isSubmitted) return;
+    e.preventDefault(); // Предотвращаем стандартное поведение формы
+
+    // Проверка валидности формы и состояний отправки
+    if (!isFormValid() || isSubmitting || isSubmitted) return;
 
     const orderData = {
-      name: form.name,
-      phone: form.phone,
-      email: form.email,
+      name,
+      phone,
+      email,
       products: cartItems.map((item) => ({
         id: item.id,
         quantity: item.quantity,
@@ -65,16 +85,11 @@ function CartPage() {
       })),
     };
 
-    setIsLoading(true);
-    setError(null);
+    setIsSubmitting(true); // Устанавливаем состояние отправки
+    setError(null); // Сбрасываем ошибку
 
     try {
-      await axios.post(`${API_URL}/order/send`, orderData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
+      await axios.post(`${API_URL}/order/send`, orderData, { headers: { 'Content-Type': 'application/json' } });
       dispatch(openModal({
         title: 'Congratulations!',
         content: [
@@ -82,43 +97,50 @@ function CartPage() {
           'A manager will contact you shortly to confirm your order.'
         ],
       }));
-
-      setIsSubmitted(true);
+      setIsSubmitted(true); // Устанавливаем состояние успешной отправки
     } catch (error) {
       console.error('Error placing order', error);
-      setError("An error occurred while placing your order. Please try again later.");
+      setError("An error occurred while placing your order. Please try again later."); // Устанавливаем сообщение об ошибке
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false); // В любом случае снимаем состояние отправки
     }
   };
 
+  // Закрытие модального окна и очистка формы
   const handleCloseModal = () => {
     dispatch(closeModal());
-    setIsSubmitted(true);
+    setIsSubmitted(true); // Очищаем форму
   };
 
+  // Очистка формы
   const clearForm = () => {
-    setForm({ name: '', phone: '', email: '' });
-    dispatch(clearCart());
+    setName(''); // Очищаем поле "Name"
+    setPhone(''); // Очищаем поле "Phone"
+    setEmail(''); // Очищаем поле "Email"
+    setTouchedFields({ // Сбрасываем состояния подсказок для всех полей
+      name: false,
+      phone: false,
+      email: false,
+    });
+    dispatch(clearCart()); // Очищаем корзину
   };
 
-  const isNameValid = () => /^[A-Za-z\s]+$/.test(form.name);
-  const isPhoneValid = () => /^\d{10,15}$/.test(form.phone);
-  const isEmailValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+  // Функции для проверки валидности полей
+  const isNameValid = () => /^[A-Za-z\s]+$/.test(name); // Проверка валидности имени
+  const isPhoneValid = () => /^\d{10,15}$/.test(phone); // Проверка валидности телефона
+  const isEmailValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Проверка валидности email
 
+  // Проверка валидности всей формы
   const isFormValid = () => isNameValid() && isPhoneValid() && isEmailValid();
 
+  // Отображение ошибки
   if (error) return (
-    <div style={{
-      color: 'red',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginTop: '50px'
-    }}>
+    <div style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: '50px' }}>
       {error}
     </div>
   );
 
+  // Проверка на пустую корзину
   if (cartItems.length === 0) return (
     <div className="globalContainer">
       <div className={styles.cartPageBlock}>
@@ -196,9 +218,6 @@ function CartPage() {
                 <span className={styles.totalPriceTitle}>Total</span>
                 <span className={styles.totalPriceSumme}>
                   {formatPrice}
-
-                  {/* ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} */}
-                  {/* ${totalPrice.toFixed(2)} */}
                 </span>
               </div>
 
@@ -209,13 +228,15 @@ function CartPage() {
                       <input
                         type="text"
                         name="name"
-                        value={form.name}
+                        value={name}
                         placeholder="Name"
                         onChange={handleInputChange}
                         required
                         aria-invalid={!isNameValid()}
                       />
-                      {!isNameValid() && <div className={styles.tooltip}></div>} {/* Only letters are allowed. */}
+                      {touchedFields.name && !isNameValid() && (
+                        <div className={styles.tooltip}>Only Latin letters are allowed.</div>
+                      )}
                     </label>
                   </div>
                   <div className={styles.formGroup}>
@@ -223,13 +244,15 @@ function CartPage() {
                       <input
                         type="tel"
                         name="phone"
-                        value={form.phone}
+                        value={phone}
                         placeholder="Phone number"
                         onChange={handleInputChange}
                         required
                         aria-invalid={!isPhoneValid()}
                       />
-                      {!isPhoneValid() && <div className={styles.tooltip}></div>} {/* Only digits are allowed. Enter 10-15 digits. */}
+                      {touchedFields.phone && !isPhoneValid() && (
+                        <div className={styles.tooltip}>Only digits are allowed. Enter 10-15 digits.</div>
+                      )}
                     </label>
                   </div>
                   <div className={styles.formGroup}>
@@ -237,21 +260,22 @@ function CartPage() {
                       <input
                         type="email"
                         name="email"
-                        value={form.email}
+                        value={email}
                         placeholder="Email"
                         onChange={handleInputChange}
                         required
                         aria-invalid={!isEmailValid()}
                       />
-                      {!isEmailValid() && <div className={styles.tooltip}></div>} {/* Enter a valid email address. */}
+                      {touchedFields.email && !isEmailValid() && (
+                        <div className={styles.tooltip}>Please enter a valid email address with the @ symbol.</div>
+                      )}
                     </label>
                   </div>
+                  <OrderButton
+                    type="submit"
+                    disabled={!isFormValid() || isSubmitting || isSubmitted}
+                  />
                 </form>
-                <OrderButton
-                  onClick={handlePlaceOrder}
-                  disabled={isLoading || isSubmitted || !isFormValid()}
-                  isLoading={isLoading}
-                />
               </div>
             </div>
           </div>
