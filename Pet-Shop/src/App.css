@@ -66,6 +66,11 @@ html {
   line-height: 26px;
   color: var(--color-dark);
   font-weight: 500;
+  background-image: url('./assets/images/pet-bg-4.jpg');
+  background-repeat: repeat;
+  background-size: 20%;
+  background-position: top left;
+  background-attachment: fixed;
 }
 
 h2 {
@@ -94,6 +99,81 @@ h2 {
   margin-inline: auto;
   padding-inline: var(--container-padding-x);
 }
+
+.wrapperContainer {
+  max-width: 1440px;
+  background-color: var(--color-light);
+  margin-inline: auto;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Loading --------------------------------------- */
+
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+  position: fixed;
+  top: 21%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-blue);
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
+}
+
+
+@keyframes animloader {
+  0% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+  25% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
+  }
+  50% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
+  }
+  75% {
+    box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+  100% {
+    box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+  }
+}
+
+/* Error Message --------------------------------------- */
+
+.errorMessage {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+
 
 /* a:focus,
 button:focus,
@@ -157,7 +237,7 @@ textarea:focus {
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 630px) {
   .titleBlock h2 {
     font-size: 45px;
     line-height: 55.4px;
