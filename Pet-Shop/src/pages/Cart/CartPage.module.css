@@ -304,6 +304,9 @@
   .cartItemPrice {
     gap: 8px;
   }
+}
+
+@media (max-width: 430px) {
 
   .discountPrice,
   .originalPriceLarge {
