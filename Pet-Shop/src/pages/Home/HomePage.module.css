@@ -17,13 +17,14 @@ h1 {
 }
 
 .mainBgStyle {
+  max-width: 1440px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 600px;
   width: 100%;
   top: 128px;
-  left: 0;
+  margin: 0 auto;
 }
 
 @media (max-width: 1023px) {

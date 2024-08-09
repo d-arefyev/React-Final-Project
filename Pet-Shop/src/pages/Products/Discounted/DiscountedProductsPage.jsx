@@ -69,16 +69,15 @@ const DiscountedProductsPage = () => {
     filterAndSortProducts();
   }, [products, searchParams, sortType]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <span class="loader"></span>
+    );
+  }
+
+  // Отображаем сообщение об ошибке
   if (error) return (
-    <div style={{
-      color: 'red',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginTop: '50px'
-    }}>
-      {error}
-    </div>
+    <div className="errorMessage">{error}</div>
   );
 
   return (

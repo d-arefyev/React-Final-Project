@@ -57,16 +57,9 @@ function ProductDetailsPage() {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;  // Отображаем сообщение о загрузке, если данные еще не получены
+  // Отображаем сообщение об ошибке
   if (error) return (
-    <div style={{
-      color: 'red',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginTop: '50px'
-    }}>
-      {error}
-    </div>
+    <div className="errorMessage">{error}</div>
   );
 
   if (!product) return <p>Product not found.</p>;  // Отображаем сообщение, если продукт не найден

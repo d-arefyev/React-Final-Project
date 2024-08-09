@@ -8,14 +8,15 @@
 
 .cartContent {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   gap: 32px;
+  flex-wrap: wrap;
 }
 
 .cartDetails {
+  flex: 2;
   display: flex;
-  /* justify-content: space-between; */
-  width: 100%;
+  flex-direction: column;
   gap: 32px;
 }
 
@@ -24,13 +25,11 @@
   flex-direction: column;
   width: 100%;
   gap: 16px;
-  flex-grow: 1;
 }
 
 .cartItem {
   display: flex;
   justify-content: start;
-  width: 100%;
   height: 180px;
   border: 1px solid var(--color-light-gray);
   border-radius: var(--border-radius-large);
@@ -54,13 +53,12 @@
 }
 
 .cartItemTitle {
-  font-size: 20px;
   font-weight: 500;
   line-height: 26px;
-  max-width: 80%;
-  white-space: nowrap;
+  max-width: 400px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -129,16 +127,19 @@
   color: var(--color-dark);
 }
 
+/* Order Details -------------------------------------- */
+
 .orderDetails {
   display: flex;
   flex-direction: column;
   align-self: flex-start;
   background-color: var(--color-light-gray2);
   border-radius: var(--border-radius-large);
-  min-width: 548px;
+  width: 100%;
   padding: 32px;
   box-sizing: border-box;
   height: auto;
+  flex: 1;
 }
 
 .orderDetails h3 {
@@ -175,6 +176,7 @@
   font-size: 64px;
   font-weight: 700;
   bottom: 18px;
+  margin-left: 16px;
 }
 
 .emptyCart {
@@ -244,17 +246,43 @@
 }
 
 
-@media (max-width: 1280px) {
-  .cartDetails {
-    flex-direction: column;
+@media (max-width: 767px) {
+  .cartItemTitle {
+    max-width: 300px;
   }
 
-  .cartContent {
-    width: 100%;
-    margin: 0 auto;
+  .cartItem {
+    height: 160px;
   }
 
+  .productImageContainer {
+    width: 150px;
+    height: auto;
+  }
+}
 
+@media (max-width: 610px) {
 
-  .orderDetails {}
-} 
+  .counterContainer span {
+    width: 250px;
+  }
+
+  .cartItemTitle {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 565px) {
+  .productImageContainer {
+    width: 120px;
+    height: auto;
+  }
+
+  .cartItem {
+    height: 140px;
+  }
+
+  .cartItemDetails {
+    /* padding: 16px 16px 16px 0; */
+  }
+}

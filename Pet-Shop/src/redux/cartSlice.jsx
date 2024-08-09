@@ -89,5 +89,4 @@ export const {
   clearCart,
 } = cartSlice.actions;
 
-// Экспортируем редьюсер по умолчанию
 export default cartSlice.reducer;

@@ -21,25 +21,27 @@ function App() {
   return (
     <ReduxProvider store={store}>
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="categories" element={<CategoriesPage />} />
-          <Route
-            path="categories/:categoryId"
-            element={<ProductsByCategoryPage />}
-          />
-          <Route path="products" element={<AllProductsPage />} />
-          <Route
-            path="discounted-products"
-            element={<DiscountedProductsPage />}
-          />
-          <Route path="products/:productId" element={<ProductDetailsPage />} />
-          <Route path="cart" element={<CartPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        <Footer />
-        <ConnectedModal />
+        <div className="wrapperContainer">
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="categories" element={<CategoriesPage />} />
+            <Route
+              path="categories/:categoryId"
+              element={<ProductsByCategoryPage />}
+            />
+            <Route path="products" element={<AllProductsPage />} />
+            <Route
+              path="discounted-products"
+              element={<DiscountedProductsPage />}
+            />
+            <Route path="products/:productId" element={<ProductDetailsPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          <Footer />
+          <ConnectedModal />
+        </div>
       </BrowserRouter>
     </ReduxProvider>
   );

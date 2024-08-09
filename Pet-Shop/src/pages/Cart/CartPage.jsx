@@ -54,7 +54,7 @@ function CartPage() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'name') setName(value);
-    if (name === 'phone') setPhone(value);
+    if (name === 'phone') setPhone(value.replace(/\D/g, ''));
     if (name === 'email') setEmail(value);
 
     // Отмечаем поле как затронутое
@@ -133,11 +133,9 @@ function CartPage() {
   // Проверка валидности всей формы
   const isFormValid = () => isNameValid() && isPhoneValid() && isEmailValid();
 
-  // Отображение ошибки
+  // Отображаем сообщение об ошибке
   if (error) return (
-    <div style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginTop: '50px' }}>
-      {error}
-    </div>
+    <div className="errorMessage">{error}</div>
   );
 
   // Проверка на пустую корзину
@@ -210,76 +208,77 @@ function CartPage() {
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className={styles.orderDetails}>
-              <h3>Order details</h3>
-              <p className={styles.itemsCount}>{totalQuantity} items</p>
-              <div className={styles.totalPrice}>
-                <span className={styles.totalPriceTitle}>Total</span>
-                <span className={styles.totalPriceSumme}>
-                  {formatPrice}
-                </span>
-              </div>
+          <div className={styles.orderDetails}>
+            <h3>Order details</h3>
+            <p className={styles.itemsCount}>{totalQuantity} items</p>
+            <div className={styles.totalPrice}>
+              <span className={styles.totalPriceTitle}>Total</span>
+              <span className={styles.totalPriceSumme}>
+                {formatPrice}
+              </span>
+            </div>
 
-              <div className={styles.formContent}>
-                <form onSubmit={handlePlaceOrder} className={styles.formGroupBox}>
-                  <div className={styles.formGroup}>
-                    <label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={name}
-                        placeholder="Name"
-                        onChange={handleInputChange}
-                        required
-                        aria-invalid={!isNameValid()}
-                      />
-                      {touchedFields.name && !isNameValid() && (
-                        <div className={styles.tooltip}>Only Latin letters are allowed.</div>
-                      )}
-                    </label>
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={phone}
-                        placeholder="Phone number"
-                        onChange={handleInputChange}
-                        required
-                        aria-invalid={!isPhoneValid()}
-                      />
-                      {touchedFields.phone && !isPhoneValid() && (
-                        <div className={styles.tooltip}>Only digits are allowed. Enter 10-15 digits.</div>
-                      )}
-                    </label>
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        placeholder="Email"
-                        onChange={handleInputChange}
-                        required
-                        aria-invalid={!isEmailValid()}
-                      />
-                      {touchedFields.email && !isEmailValid() && (
-                        <div className={styles.tooltip}>Please enter a valid email address with the @ symbol.</div>
-                      )}
-                    </label>
-                  </div>
-                  <OrderButton
-                    type="submit"
-                    disabled={!isFormValid() || isSubmitting || isSubmitted}
-                  />
-                </form>
-              </div>
+            <div className={styles.formContent}>
+              <form onSubmit={handlePlaceOrder} className={styles.formGroupBox}>
+                <div className={styles.formGroup}>
+                  <label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={name}
+                      placeholder="Name"
+                      onChange={handleInputChange}
+                      required
+                      aria-invalid={!isNameValid()}
+                    />
+                    {touchedFields.name && !isNameValid() && (
+                      <div className={styles.tooltip}>Only Latin letters are allowed.</div>
+                    )}
+                  </label>
+                </div>
+                <div className={styles.formGroup}>
+                  <label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={phone}
+                      placeholder="Phone number"
+                      onChange={handleInputChange}
+                      required
+                      aria-invalid={!isPhoneValid()}
+                    />
+                    {touchedFields.phone && !isPhoneValid() && (
+                      <div className={styles.tooltip}>Only digits are allowed. Enter 10-15 digits.</div>
+                    )}
+                  </label>
+                </div>
+                <div className={styles.formGroup}>
+                  <label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={email}
+                      placeholder="Email"
+                      onChange={handleInputChange}
+                      required
+                      aria-invalid={!isEmailValid()}
+                    />
+                    {touchedFields.email && !isEmailValid() && (
+                      <div className={styles.tooltip}>Please enter a valid email address with the @ symbol.</div>
+                    )}
+                  </label>
+                </div>
+                <OrderButton
+                  type="submit"
+                  disabled={!isFormValid() || isSubmitting || isSubmitted}
+                />
+              </form>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

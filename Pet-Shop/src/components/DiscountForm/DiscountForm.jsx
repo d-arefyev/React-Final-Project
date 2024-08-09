@@ -1,6 +1,6 @@
-import React, { useState } from 'react'; // Импортируем необходимые модули из React.
-import axios from 'axios'; // Импортируем библиотеку для выполнения HTTP-запросов.
-import { useDispatch } from 'react-redux'; // Импортируем хук для диспатчинга действий в Redux.
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 import { openModal, closeModal } from '../../redux/modalSlice';
 import GetDiscountButton from '../Buttons/GetDiscountButton/GetDiscountButton';
@@ -15,7 +15,7 @@ function DiscountForm() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false); // Состояние, чтобы отслеживать, происходит ли отправка формы.
   const [isSubmitted, setIsSubmitted] = useState(false); // Состояние, чтобы отслеживать, была ли форма отправлена.
-  
+
   // Состояние для отслеживания, было ли поле ввода затронуто (необходимо для отображения подсказок).
   const [touchedFields, setTouchedFields] = useState({
     name: false,
@@ -61,9 +61,9 @@ function DiscountForm() {
   };
 
   // Функции для проверки валидности каждого поля ввода.
-  const isNameValid = () => /^[A-Za-z\s]+$/.test(name); // Имя должно состоять только из букв и пробелов.
-  const isPhoneValid = () => /^\d{10,15}$/.test(phone); // Телефон должен состоять только из цифр (от 10 до 15 символов).
-  const isEmailValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Проверка на правильность введенного email.
+  const isNameValid = () => /^[A-Za-z\s]+$/.test(name);
+  const isPhoneValid = () => /^\d{10,15}$/.test(phone);
+  const isEmailValid = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   // Функция, которая проверяет валидность всей формы.
   const isFormValid = () => isNameValid() && isPhoneValid() && isEmailValid();
@@ -90,7 +90,7 @@ function DiscountForm() {
   const handleInputChange = (field, value) => {
     // Обновляем значение соответствующего поля.
     if (field === 'name') setName(value);
-    if (field === 'phone') setPhone(value);
+    if (field === 'phone') setPhone(value.replace(/\D/g, '')); // Обрабатываем поле "Phone".
     if (field === 'email') setEmail(value);
 
     // Отмечаем поле как затронутое, чтобы в дальнейшем отобразить подсказку, если оно невалидно.
@@ -120,7 +120,6 @@ function DiscountForm() {
                     required
                     aria-invalid={!isNameValid()}
                   />
-                  {/* Отображаем подсказку, если поле было затронуто и введенные данные невалидны. */}
                   {touchedFields.name && !isNameValid() && (
                     <div className={styles.tooltip}>Only Latin letters are allowed.</div>
                   )}
@@ -136,7 +135,6 @@ function DiscountForm() {
                     required
                     aria-invalid={!isPhoneValid()}
                   />
-                  {/* Отображаем подсказку, если поле было затронуто и введенные данные невалидны. */}
                   {touchedFields.phone && !isPhoneValid() && (
                     <div className={styles.tooltip}>Only digits are allowed. Enter 10-15 digits.</div>
                   )}
@@ -152,7 +150,6 @@ function DiscountForm() {
                     required
                     aria-invalid={!isEmailValid()}
                   />
-                  {/* Отображаем подсказку, если поле было затронуто и введенные данные невалидны. */}
                   {touchedFields.email && !isEmailValid() && (
                     <div className={styles.tooltip}>Please enter a valid email address with the @ symbol.</div>
                   )}
@@ -170,4 +167,4 @@ function DiscountForm() {
   );
 }
 
-export default DiscountForm; // Экспортируем компонент.
+export default DiscountForm;
