@@ -274,34 +274,57 @@
 
 @media (max-width: 590px) {
   .productImageContainer {
-    width: 120px;
+    width: 100px;
     height: auto;
   }
 
+  .cartItemTitle {
+    font-size: 20px;
+    max-width: 150px;
+  }
+
   .cartItem {
-    height: 130px;
+    height: 100px;
+    gap: 24px;
   }
 
   .cartItemDetails {
-    padding: 24px 24px 24px 0;
+    padding: 16px 16px 16px 0;
   }
 
   .removeButton {
-    top: 24px;
-    right: 24px;
+    top: 16px;
+    right: 16px;
   }
 
   .priceBox {
-    gap: 8px;
+    gap: 6px;
   }
 
   .cartItemPrice {
-    gap: 16px;
+    gap: 8px;
   }
 
   .discountPrice,
   .originalPriceLarge {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .totalPrice {
+    flex-wrap: wrap;
+  }
+
+  .totalPriceSumme {
+    font-size: 64px;
+    bottom: 18px;
+    margin-left: 0;
+  }
+
+  .totalPriceTitle {
     font-size: 40px;
-    line-height: 44px;
+    font-weight: 500;
+    line-height: 40px;
+    margin: 0 0 16px 0;
   }
 }
