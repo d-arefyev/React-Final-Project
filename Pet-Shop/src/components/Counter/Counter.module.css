@@ -72,10 +72,11 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 630px) {
+@media (max-width: 590px) {
 
   .counterContainer {
-    width: 150px;
+    width: 135px;
+    height: 40px;
   }
 
   .quantity {
